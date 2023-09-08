@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import 'package:google_fonts/google_fonts.dart';
+
 class DateTimePage extends StatefulWidget {
   const DateTimePage({super.key});
 
@@ -32,7 +34,12 @@ class _DateTimePageState extends State<DateTimePage> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [Text(nowTime)],
+          children: [
+            Text(nowTime,
+                style: GoogleFonts.dotGothic16(
+                    textStyle: const TextStyle(
+                        fontSize: 120, fontWeight: FontWeight.bold)))
+          ],
         ),
       ),
     );
