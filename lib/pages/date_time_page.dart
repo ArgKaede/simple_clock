@@ -8,7 +8,7 @@ class DateTimePage extends StatefulWidget {
 }
 
 class _DateTimePageState extends State<DateTimePage> {
-  final now = DateTime.now();
+ String now_time = DateFormat
   @override
   Widget build(BuildContext context) {
     return Scaffold(
