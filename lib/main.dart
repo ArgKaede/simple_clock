@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
-
 import 'pages/date_time_page.dart';
+import 'package:flutter/services.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized(); //これ入れないとダメだったと思います。
+  // 横向きに変更
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
+
   runApp(const MyApp());
 }
 
