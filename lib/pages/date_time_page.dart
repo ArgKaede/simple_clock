@@ -9,15 +9,16 @@ class DateTimePage extends StatefulWidget {
 }
 
 class _DateTimePageState extends State<DateTimePage> {
-  String now_time = DateFormat('kk:mm').format(DateTime.now());
+  String nowTime = DateFormat('kk:mm').format(DateTime.now());
 
+  @override
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [Text(now_time)],
+          children: [Text(nowTime)],
         ),
       ),
     );
