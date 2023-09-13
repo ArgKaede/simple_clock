@@ -38,44 +38,62 @@ class _DateTimePageState extends State<DateTimePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: GestureDetector(
-            onTap: toggleMenu, // 画面をタップしたらメニューを切り替える
-            child: Stack(children: [
-              Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+      body: GestureDetector(
+          onTap: toggleMenu, // 画面をタップしたらメニューを切り替える
+          child: Stack(children: [
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(nowTime,
+                      style: GoogleFonts.robotoMono(
+                          textStyle: TextStyle(
+                              fontSize: 120, fontWeight: FontWeight.bold)))
+                ],
+              ),
+            ),
+            AnimatedOpacity(
+              opacity: isMenuVisible ? 1.0 : 0.0,
+              duration: Duration(milliseconds: 200),
+              child: Container(
+                color: Colors.white,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Text(nowTime,
-                        style: GoogleFonts.robotoMono(
-                            textStyle: TextStyle(
-                                fontSize: 120, fontWeight: FontWeight.bold)))
+                    IconButton(
+                      icon: Icon(Icons.settings),
+                      onPressed: () {
+                        // メニューアイテムが選択された場合の処理
+                      },
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.alarm),
+                      onPressed: () {
+                        // メニューアイテムが選択された場合の処理
+                      },
+                    ),
                   ],
                 ),
               ),
-              AnimatedOpacity(
-                opacity: isMenuVisible ? 1.0 : 0.0,
-                duration: Duration(milliseconds: 500),
-                child: Container(
-                  color: Colors.white,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      IconButton(
-                        icon: Icon(Icons.settings),
-                        onPressed: () {
-                          // メニューアイテムが選択された場合の処理
-                        },
-                      ),
-                      IconButton(
-                        icon: Icon(Icons.alarm),
-                        onPressed: () {
-                          // メニューアイテムが選択された場合の処理
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ])));
+            ),
+          ])),
+      floatingActionButton: PopupMenuButton(
+        icon: Icon(Icons.menu),
+        itemBuilder: (context) => [
+          PopupMenuItem(
+            child: Text("Settings"),
+            value: 1,
+          ),
+          PopupMenuItem(
+            child: Text("Alarm"),
+            value: 2,
+          ),
+        ],
+        onSelected: (value) {
+          // メニューアイテムが選択された場合の処理
+        },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+    );
   }
 }
