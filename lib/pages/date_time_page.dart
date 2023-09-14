@@ -20,8 +20,11 @@ class _DateTimePageState extends State<DateTimePage> {
     });
   }
 
+  final List<String> _timeDisplay = ["kk:mm", "kk:mm:ss", "ss"];
+
+  var timeDisplay = 1;
   // タイマー表示
-  String nowTime = DateFormat('kk:mm:ss').format(DateTime.now());
+  String nowTime = DateFormat('kk:mm').format(DateTime.now());
   @override
   void initState() {
     super.initState();
@@ -35,65 +38,101 @@ class _DateTimePageState extends State<DateTimePage> {
     });
   }
 
+  // タイマー表示切り替え
+  void _changeTimeDisplay() {
+    setState(() {
+      timeDisplay = 2;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: GestureDetector(
-          onTap: toggleMenu, // 画面をタップしたらメニューを切り替える
-          child: Stack(children: [
-            Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(nowTime,
-                      style: GoogleFonts.robotoMono(
-                          textStyle: TextStyle(
-                              fontSize: 120, fontWeight: FontWeight.bold)))
-                ],
-              ),
-            ),
-            AnimatedOpacity(
-              opacity: isMenuVisible ? 1.0 : 0.0,
-              duration: Duration(milliseconds: 200),
-              child: Container(
-                color: Colors.white,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.settings),
-                      onPressed: () {
-                        // メニューアイテムが選択された場合の処理
-                      },
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.alarm),
-                      onPressed: () {
-                        // メニューアイテムが選択された場合の処理
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ),
+    return Container(
+      decoration: const BoxDecoration(
+          gradient: RadialGradient(
+              center: Alignment.center,
+              radius: 1.8,
+              colors: [
+            Color.fromARGB(255, 250, 223, 182),
+            Color.fromARGB(255, 150, 117, 50)
           ])),
-      floatingActionButton: PopupMenuButton(
-        icon: Icon(Icons.menu),
-        itemBuilder: (context) => [
-          PopupMenuItem(
-            child: Text("Settings"),
-            value: 1,
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(nowTime,
+                  style: GoogleFonts.robotoMono(
+                      textStyle: TextStyle(
+                          fontSize: 120, fontWeight: FontWeight.bold)))
+            ],
           ),
-          PopupMenuItem(
-            child: Text("Alarm"),
-            value: 2,
-          ),
-        ],
-        onSelected: (value) {
-          // メニューアイテムが選択された場合の処理
-        },
+        ),
+        // ボタンタップでメニュー表示
+        //  GestureDetector(
+        //     onTap: toggleMenu, // 画面をタップしたらメニューを切り替える
+        //     child: Stack(children: [
+        //       Center(
+        //         child: Column(
+        //           mainAxisAlignment: MainAxisAlignment.center,
+        //           children: [
+        //             Text(nowTime,
+        //                 style: GoogleFonts.robotoMono(
+        //                     textStyle: TextStyle(
+        //                         fontSize: 120, fontWeight: FontWeight.bold)))
+        //           ],
+        //         ),
+        //       ),
+        //       AnimatedOpacity(
+        //         opacity: isMenuVisible ? 1.0 : 0.0,
+        //         duration: Duration(milliseconds: 200),
+        //         child: Container(
+        //           color: Colors.white,
+        //           child: Row(
+        //             mainAxisAlignment: MainAxisAlignment.spaceAround,
+        //             children: [
+        //               IconButton(
+        //                 icon: Icon(Icons.settings),
+        //                 onPressed: () {
+        //                   // メニューアイテムが選択された場合の処理
+        //                 },
+        //               ),
+        //               IconButton(
+        //                 icon: Icon(Icons.alarm),
+        //                 onPressed: () {
+        //                   // メニューアイテムが選択された場合の処理
+        //                 },
+        //               ),
+        //             ],
+        //           ),
+        //         ),
+        //       ),
+        //     ])),
+
+        floatingActionButton: PopupMenuButton(
+          icon: const Icon(Icons.schedule),
+          itemBuilder: (context) => [
+            const PopupMenuItem(
+              value: 1,
+              child: Text("kk:mm"),
+            ),
+            PopupMenuItem(
+              value: 2,
+              onTap: () => _changeTimeDisplay(),
+              child: const Text("kk:mm:ss"),
+            ),
+            const PopupMenuItem(
+              value: 3,
+              child: Text("ss"),
+            ),
+          ],
+          onSelected: (value) {
+            // メニューアイテムが選択された場合の処理
+          },
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
     );
   }
 }
