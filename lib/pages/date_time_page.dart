@@ -38,21 +38,9 @@ class _DateTimePageState extends State<DateTimePage> {
   }
 
   // タイマー表示切り替え
-  void _changeTimeDisplay0() {
+  void _changeTimeDisplay(value) {
     setState(() {
-      timeDisplayNumber = 0;
-    });
-  }
-
-  void _changeTimeDisplay1() {
-    setState(() {
-      timeDisplayNumber = 1;
-    });
-  }
-
-  void _changeTimeDisplay2() {
-    setState(() {
-      timeDisplayNumber = 2;
+      timeDisplayNumber = value;
     });
   }
 
@@ -132,43 +120,38 @@ class _DateTimePageState extends State<DateTimePage> {
             PopupMenuButton(
               icon: const Icon(Icons.schedule),
               itemBuilder: (context) => [
-                PopupMenuItem(
+                const PopupMenuItem(
+                  value: 0,
+                  child: Text("kk:mm"),
+                ),
+                const PopupMenuItem(
                   value: 1,
-                  onTap: () => _changeTimeDisplay0(),
-                  child: const Text("kk:mm"),
+                  child: Text("kk:mm:ss"),
                 ),
-                PopupMenuItem(
+                const PopupMenuItem(
                   value: 2,
-                  onTap: () => _changeTimeDisplay1(),
-                  child: const Text("kk:mm:ss"),
-                ),
-                PopupMenuItem(
-                  value: 3,
-                  onTap: () => _changeTimeDisplay2(),
-                  child: const Text("ss"),
+                  child: Text("ss"),
                 ),
               ],
               onSelected: (value) {
                 // メニューアイテムが選択された場合の処理
+                _changeTimeDisplay(value);
               },
             ),
             PopupMenuButton(
               icon: const Icon(Icons.palette),
               itemBuilder: (context) => [
-                PopupMenuItem(
+                const PopupMenuItem(
                   value: 1,
-                  onTap: () => _changeTimeDisplay0(),
-                  child: const Text("kk:mm"),
+                  child: Text("kk:mm"),
                 ),
-                PopupMenuItem(
+                const PopupMenuItem(
                   value: 2,
-                  onTap: () => _changeTimeDisplay1(),
-                  child: const Text("kk:mm:ss"),
+                  child: Text("kk:mm:ss"),
                 ),
-                PopupMenuItem(
+                const PopupMenuItem(
                   value: 3,
-                  onTap: () => _changeTimeDisplay2(),
-                  child: const Text("ss"),
+                  child: Text("ss"),
                 ),
               ],
               onSelected: (value) {
