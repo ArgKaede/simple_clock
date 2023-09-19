@@ -11,7 +11,7 @@ class DateTimePage extends StatefulWidget {
 }
 
 class _DateTimePageState extends State<DateTimePage> {
-  // メニューの表示切り替え
+  // ▼ メニューの表示切り替え
   bool isMenuVisible = false;
   void toggleMenu() {
     setState(() {
@@ -20,29 +20,46 @@ class _DateTimePageState extends State<DateTimePage> {
     });
   }
 
-  final List<String> _timeDisplay = ["kk:mm", "kk:mm:ss", "ss"];
+  // ▼ タイマー表示
 
-  var timeDisplay = 1;
-  // タイマー表示
-  String nowTime = DateFormat('kk:mm').format(DateTime.now());
-  @override
-  void initState() {
-    super.initState();
-    Timer.periodic(const Duration(seconds: 1), _onTimer);
-  }
+  static List<String> timeDisplay = ["kk:mm", "kk:mm:ss", "ss"];
+
+  static int timeDisplayNumber = 2;
+
+  String nowTime =
+      DateFormat(timeDisplay[timeDisplayNumber]).format(DateTime.now());
 
   void _onTimer(Timer timer) {
-    var newTime = DateFormat('kk:mm:ss').format(DateTime.now());
+    var newTime =
+        DateFormat(timeDisplay[timeDisplayNumber]).format(DateTime.now());
     setState(() {
       nowTime = newTime;
     });
   }
 
   // タイマー表示切り替え
-  void _changeTimeDisplay() {
+  void _changeTimeDisplay0() {
     setState(() {
-      timeDisplay = 2;
+      timeDisplayNumber = 0;
     });
+  }
+
+  void _changeTimeDisplay1() {
+    setState(() {
+      timeDisplayNumber = 1;
+    });
+  }
+
+  void _changeTimeDisplay2() {
+    setState(() {
+      timeDisplayNumber = 2;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    Timer.periodic(const Duration(seconds: 1), _onTimer);
   }
 
   @override
@@ -53,7 +70,7 @@ class _DateTimePageState extends State<DateTimePage> {
               center: Alignment.center,
               radius: 1.8,
               colors: [
-            Color.fromARGB(255, 250, 223, 182),
+            Color.fromARGB(255, 250, 205, 182),
             Color.fromARGB(255, 150, 117, 50)
           ])),
       child: Scaffold(
@@ -113,18 +130,20 @@ class _DateTimePageState extends State<DateTimePage> {
         floatingActionButton: PopupMenuButton(
           icon: const Icon(Icons.schedule),
           itemBuilder: (context) => [
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 1,
-              child: Text("kk:mm"),
+              onTap: () => _changeTimeDisplay0(),
+              child: const Text("kk:mm"),
             ),
             PopupMenuItem(
               value: 2,
-              onTap: () => _changeTimeDisplay(),
+              onTap: () => _changeTimeDisplay1(),
               child: const Text("kk:mm:ss"),
             ),
-            const PopupMenuItem(
+            PopupMenuItem(
               value: 3,
-              child: Text("ss"),
+              onTap: () => _changeTimeDisplay2(),
+              child: const Text("ss"),
             ),
           ],
           onSelected: (value) {
