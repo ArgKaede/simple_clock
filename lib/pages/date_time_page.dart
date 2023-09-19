@@ -127,28 +127,55 @@ class _DateTimePageState extends State<DateTimePage> {
         //       ),
         //     ])),
 
-        floatingActionButton: PopupMenuButton(
-          icon: const Icon(Icons.schedule),
-          itemBuilder: (context) => [
-            PopupMenuItem(
-              value: 1,
-              onTap: () => _changeTimeDisplay0(),
-              child: const Text("kk:mm"),
+        floatingActionButton: Column(
+          children: [
+            PopupMenuButton(
+              icon: const Icon(Icons.schedule),
+              itemBuilder: (context) => [
+                PopupMenuItem(
+                  value: 1,
+                  onTap: () => _changeTimeDisplay0(),
+                  child: const Text("kk:mm"),
+                ),
+                PopupMenuItem(
+                  value: 2,
+                  onTap: () => _changeTimeDisplay1(),
+                  child: const Text("kk:mm:ss"),
+                ),
+                PopupMenuItem(
+                  value: 3,
+                  onTap: () => _changeTimeDisplay2(),
+                  child: const Text("ss"),
+                ),
+              ],
+              onSelected: (value) {
+                // メニューアイテムが選択された場合の処理
+              },
             ),
-            PopupMenuItem(
-              value: 2,
-              onTap: () => _changeTimeDisplay1(),
-              child: const Text("kk:mm:ss"),
-            ),
-            PopupMenuItem(
-              value: 3,
-              onTap: () => _changeTimeDisplay2(),
-              child: const Text("ss"),
-            ),
+            PopupMenuButton(
+              icon: const Icon(Icons.palette),
+              itemBuilder: (context) => [
+                PopupMenuItem(
+                  value: 1,
+                  onTap: () => _changeTimeDisplay0(),
+                  child: const Text("kk:mm"),
+                ),
+                PopupMenuItem(
+                  value: 2,
+                  onTap: () => _changeTimeDisplay1(),
+                  child: const Text("kk:mm:ss"),
+                ),
+                PopupMenuItem(
+                  value: 3,
+                  onTap: () => _changeTimeDisplay2(),
+                  child: const Text("ss"),
+                ),
+              ],
+              onSelected: (value) {
+                // メニューアイテムが選択された場合の処理
+              },
+            )
           ],
-          onSelected: (value) {
-            // メニューアイテムが選択された場合の処理
-          },
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       ),
