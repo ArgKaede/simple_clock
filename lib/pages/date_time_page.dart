@@ -50,11 +50,28 @@ class _DateTimePageState extends State<DateTimePage> {
   }
 
   // ▼ アイコンの表示
-
   bool isIconMenuEast = true;
   void switchIconMenuDisplay() {
     setState(() {
       isIconMenuEast = !isIconMenuEast;
+    });
+  }
+
+  // ▼ フォントの切り替え
+  static List timerFonts = [
+    GoogleFonts.robotoMono(
+        textStyle: const TextStyle(fontSize: 120, fontWeight: FontWeight.bold)),
+    GoogleFonts.signika(
+        textStyle: const TextStyle(fontSize: 120, fontWeight: FontWeight.bold)),
+    GoogleFonts.caveat(
+        textStyle: const TextStyle(fontSize: 120, fontWeight: FontWeight.bold)),
+  ];
+
+  var _timerFont = timerFonts[0];
+
+  void _changetimerFont(value) {
+    setState(() {
+      _timerFont = timerFonts[value];
     });
   }
 
@@ -76,12 +93,7 @@ class _DateTimePageState extends State<DateTimePage> {
           body: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(nowTime,
-                    style: GoogleFonts.robotoMono(
-                        textStyle: const TextStyle(
-                            fontSize: 120, fontWeight: FontWeight.bold)))
-              ],
+              children: [Text(nowTime, style: _timerFont)],
             ),
           ),
           floatingActionButton: AnimatedOpacity(
@@ -89,11 +101,13 @@ class _DateTimePageState extends State<DateTimePage> {
             duration: const Duration(milliseconds: 200),
             child: Column(
               children: [
+                // 左右の表示切り替え
                 IconButton(
                     onPressed: switchIconMenuDisplay,
                     icon: isIconMenuEast
                         ? const Icon(Icons.east)
                         : const Icon(Icons.west)),
+                // 時間の表示切り替え
                 PopupMenuButton(
                   icon: const Icon(Icons.schedule),
                   itemBuilder: (context) => [
@@ -115,6 +129,7 @@ class _DateTimePageState extends State<DateTimePage> {
                     _changeTimeDisplay(value);
                   },
                 ),
+                // カラーの切り替え
                 PopupMenuButton(
                   icon: const Icon(Icons.palette),
                   itemBuilder: (context) => [
@@ -133,6 +148,28 @@ class _DateTimePageState extends State<DateTimePage> {
                   ],
                   onSelected: (value) {
                     // メニューアイテムが選択された場合の処理
+                  },
+                ),
+                // フォントの切り替え
+                PopupMenuButton(
+                  icon: const Icon(Icons.onetwothree),
+                  itemBuilder: (context) => [
+                    const PopupMenuItem(
+                      value: 0,
+                      child: Text("robotoMono"),
+                    ),
+                    const PopupMenuItem(
+                      value: 1,
+                      child: Text("signika"),
+                    ),
+                    const PopupMenuItem(
+                      value: 2,
+                      child: Text("caveat"),
+                    ),
+                  ],
+                  onSelected: (value) {
+                    // メニューアイテムが選択された場合の処理
+                    _changetimerFont(value);
                   },
                 ),
               ],
