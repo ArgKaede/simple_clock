@@ -49,6 +49,15 @@ class _DateTimePageState extends State<DateTimePage> {
     Timer.periodic(const Duration(seconds: 1), _onTimer);
   }
 
+  // ▼ アイコンの表示
+
+  bool isIconMenuEast = true;
+  void switchIconMenuDisplay() {
+    setState(() {
+      isIconMenuEast = !isIconMenuEast;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -80,6 +89,11 @@ class _DateTimePageState extends State<DateTimePage> {
             duration: const Duration(milliseconds: 200),
             child: Column(
               children: [
+                IconButton(
+                    onPressed: switchIconMenuDisplay,
+                    icon: isIconMenuEast
+                        ? const Icon(Icons.east)
+                        : const Icon(Icons.west)),
                 PopupMenuButton(
                   icon: const Icon(Icons.schedule),
                   itemBuilder: (context) => [
@@ -120,11 +134,13 @@ class _DateTimePageState extends State<DateTimePage> {
                   onSelected: (value) {
                     // メニューアイテムが選択された場合の処理
                   },
-                )
+                ),
               ],
             ),
           ),
-          floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+          floatingActionButtonLocation: isIconMenuEast
+              ? FloatingActionButtonLocation.startTop
+              : FloatingActionButtonLocation.endTop,
         ),
       ),
     );
